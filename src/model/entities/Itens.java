@@ -70,4 +70,9 @@ public class Itens {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Itens [id=" + id + ", nome=" + nome + ", quantidade=" + quantidade + ", marca=" + marca + "]";
+	}
 }

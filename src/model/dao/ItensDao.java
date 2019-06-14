@@ -6,9 +6,9 @@ import model.entities.Itens;
 
 public interface ItensDao {
 
-	void inserir(Itens obj);
-	void atualizar(Itens obj);
-	void removerPorId(Integer id);
-	Itens buscaPorId(Integer id);
+	void insert(Itens obj);
+	void update(Itens obj);
+	void removeById(Integer id);
+	Itens findById(Integer id);
 	List<Itens> findAll();
 }
