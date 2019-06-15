@@ -10,8 +10,9 @@ public class Main {
 
 		ItensDao itensDao = DaoFactory.createItensDao();
 		
-		Itens item = itensDao.findById(3);
-		
-		System.out.println(item);
+		Itens item = new Itens(null, "Mouse USB novo", 2, null);
+		itensDao.insert(item);
+		System.out.println("Inserido! Novo id = " + item.getId());
 	}
+		
 }

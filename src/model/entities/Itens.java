@@ -1,16 +1,20 @@
 package model.entities;
 
-public class Itens {
+import java.io.Serializable;
 
-	private int id;
+public class Itens implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
 	private String nome;
-	private int quantidade;
+	private Integer quantidade;
 	private String marca;
 	
 	public Itens() {
 	}
 
-	public Itens(int id, String nome, int quantidade, String marca) {
+	public Itens(Integer id, String nome, Integer quantidade, String marca) {
 		this.id = id;
 		this.nome = nome;
 		this.quantidade = quantidade;
