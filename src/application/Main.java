@@ -2,7 +2,6 @@ package application;
 
 import model.dao.DaoFactory;
 import model.dao.ItensDao;
-import model.entities.Itens;
 
 public class Main {
 
@@ -10,9 +9,7 @@ public class Main {
 
 		ItensDao itensDao = DaoFactory.createItensDao();
 		
-		Itens item = itensDao.findById(5);
-		item.setQuantidade(2);
-		itensDao.update(item);
+		itensDao.removeById(5);
 	}
 		
 }

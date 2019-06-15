@@ -70,7 +70,16 @@ public class ItensDaoJDBC implements ItensDao {
 
 	@Override
 	public void removeById(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = con.prepareStatement("DELETE FROM itens WHERE id = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		} catch (SQLException e) {
+			throw new DBException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
