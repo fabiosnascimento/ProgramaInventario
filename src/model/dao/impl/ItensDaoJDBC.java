@@ -52,8 +52,20 @@ public class ItensDaoJDBC implements ItensDao {
 
 	@Override
 	public void update(Itens obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = con.prepareStatement("UPDATE itens SET nome = ?, quantidade = ?, marca = ? WHERE id = ?");
+			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getQuantidade());
+			st.setString(3, obj.getMarca());
+			st.setInt(4, obj.getId());
+			st.executeUpdate();
 
+		} catch (SQLException e) {
+			throw new DBException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
