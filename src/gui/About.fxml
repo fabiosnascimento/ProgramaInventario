@@ -8,7 +8,7 @@
 
 <VBox prefHeight="254.0" prefWidth="374.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
    <children>
-      <Label text="About">
+      <Label text="Sobre">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
