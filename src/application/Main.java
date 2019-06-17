@@ -1,15 +1,37 @@
 package application;
 
-import model.dao.DaoFactory;
-import model.dao.ItensDao;
+import java.io.IOException;
 
-public class Main {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
+			ScrollPane scrollPane = loader.load();
+			
+			scrollPane.setFitToHeight(true);
+			scrollPane.setFitToWidth(true);
+			
+			Scene mainScene = new Scene(scrollPane);
+			primaryStage.setScene(mainScene);
+			primaryStage.setTitle("Programa de Inventário");
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 
-		ItensDao itensDao = DaoFactory.createItensDao();
-		
-		itensDao.removeById(5);
+		launch(args);
 	}
-		
+
 }
