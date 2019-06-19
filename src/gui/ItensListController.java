@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -17,9 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,11 +33,13 @@ import model.services.ItensService;
 public class ItensListController implements Initializable, DataChangeListener {
 
 	private ItensService service;
-	
+
 	@FXML
 	private Button btNovo;
 	@FXML
 	private Button btEditar;
+	@FXML
+	private Button btDeletar;
 	@FXML
 	private TableView<Itens> tableViewItens;
 	@FXML
@@ -47,16 +50,17 @@ public class ItensListController implements Initializable, DataChangeListener {
 	private TableColumn<Itens, Integer> tableColumnQuantidade;
 	@FXML
 	private TableColumn<Itens, String> tableColumnMarca;
-	
+
 	private ObservableList<Itens> obsList;
-	
+
 	@FXML
 	public void onBtNovoAction(ActionEvent e) {
 		Stage parentStage = Utils.currentStage(e);
 		Itens obj = new Itens();
-		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);;
+		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
+		;
 	}
-	
+
 	public void onBtEditarAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Itens obj = tableViewItens.getSelectionModel().getSelectedItem();
@@ -66,11 +70,20 @@ public class ItensListController implements Initializable, DataChangeListener {
 			Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
 		}
 	}
-	
+
+	public void onBtDeletarAction(ActionEvent event) {
+		Itens obj = tableViewItens.getSelectionModel().getSelectedItem();
+		if (obj == null) {
+			Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
+		} else {
+			removeEntity(obj);
+		}
+	}
+
 	public void setItensService(ItensService service) {
 		this.service = service;
 	}
-	
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
@@ -81,11 +94,11 @@ public class ItensListController implements Initializable, DataChangeListener {
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 		tableColumnQuantidade.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
 		tableColumnMarca.setCellValueFactory(new PropertyValueFactory<>("Marca"));
-		
+
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewItens.prefHeightProperty().bind(stage.heightProperty());
 	}
-	
+
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service não inicializado");
@@ -99,13 +112,13 @@ public class ItensListController implements Initializable, DataChangeListener {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			
+
 			ItensFormController controller = loader.getController();
 			controller.setItens(obj);
 			controller.setItensService(new ItensService());
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
-			
+
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Insira os dados do equipamento");
 			dialogStage.setScene(new Scene(pane));
@@ -113,7 +126,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-			
+
 		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Erro carregando tela", e.getMessage(), AlertType.ERROR);
 		}
@@ -122,5 +135,22 @@ public class ItensListController implements Initializable, DataChangeListener {
 	@Override
 	public void onDataChanged() {
 		updateTableView();
+	}
+
+	private void removeEntity(Itens obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Atenção", "Deseja remover este item?");
+
+		if (result.get() == ButtonType.OK) {
+			if (service == null) {
+				throw new IllegalStateException("Service não iniciado");
+			}
+			try {
+				service.remove(obj);
+				updateTableView();
+
+			} catch (NullPointerException e) {
+				Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
+			}
+		}
 	}
 }

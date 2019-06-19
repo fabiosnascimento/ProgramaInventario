@@ -21,5 +21,8 @@ public class ItensService {
 			dao.update(obj);
 		}
 	}
-
+	
+	public void remove(Itens obj) {
+		dao.removeById(obj.getId());
+	}
 }
