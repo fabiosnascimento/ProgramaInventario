@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DBException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -34,6 +36,8 @@ public class ItensListController implements Initializable, DataChangeListener {
 	@FXML
 	private Button btNovo;
 	@FXML
+	private Button btEditar;
+	@FXML
 	private TableView<Itens> tableViewItens;
 	@FXML
 	private TableColumn<Itens, Integer> tableColumnId;
@@ -51,7 +55,17 @@ public class ItensListController implements Initializable, DataChangeListener {
 		Stage parentStage = Utils.currentStage(e);
 		Itens obj = new Itens();
 		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);;
-	}	
+	}
+	
+	public void onBtEditarAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		Itens obj = tableViewItens.getSelectionModel().getSelectedItem();
+		try {
+			createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
+		} catch (IllegalStateException e) {
+			Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
+		}
+	}
 	
 	public void setItensService(ItensService service) {
 		this.service = service;
