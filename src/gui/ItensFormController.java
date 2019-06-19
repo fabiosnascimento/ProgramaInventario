@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DBException;
 import gui.listeners.DataChangeListener;
@@ -18,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Itens;
+import model.exceptions.ValidationException;
 import model.services.ItensService;
 
 public class ItensFormController implements Initializable {
@@ -70,6 +73,8 @@ public class ItensFormController implements Initializable {
 			service.saveOrUpdate(entity);
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
+		} catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
 		} catch (DBException e) {
 			Alerts.showAlert("Erro salvando objeto", null, e.getMessage(), AlertType.ERROR);
 		}
@@ -83,10 +88,22 @@ public class ItensFormController implements Initializable {
 
 	private Itens getFormData() {
 		Itens obj = new Itens();
+		
+		ValidationException exception = new ValidationException("Erro de validação");
+		
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		
+		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+			exception.addError("name", "O campo não pode estar vazio");
+		}
 		obj.setNome(txtNome.getText());
+
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
 		obj.setMarca(txtMarca.getText());
+		
+		if (exception.getErrors().size() > 0) {
+			throw exception;
+		}
 		
 		return obj;
 	}
@@ -115,5 +132,13 @@ public class ItensFormController implements Initializable {
 		txtNome.setText(entity.getNome());
 		txtQuantidade.setText(String.valueOf(entity.getQuantidade()));
 		txtMarca.setText(entity.getMarca());
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		if (fields.contains("name")) {
+			lblErroNome.setText(errors.get("name"));
+		}
 	}
 }
