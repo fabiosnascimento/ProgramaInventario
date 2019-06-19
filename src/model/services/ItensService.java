@@ -13,5 +13,13 @@ public class ItensService {
 	public List<Itens> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Itens obj) {
+		if (obj.getId() == null) {
+			dao.insert(obj);
+		} else {
+			dao.update(obj);
+		}
+	}
 
 }

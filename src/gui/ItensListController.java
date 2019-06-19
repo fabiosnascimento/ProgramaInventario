@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Itens;
 import model.services.ItensService;
 
-public class ItensListController implements Initializable {
+public class ItensListController implements Initializable, DataChangeListener {
 
 	private ItensService service;
 	
@@ -48,8 +49,9 @@ public class ItensListController implements Initializable {
 	@FXML
 	public void onBtNovoAction(ActionEvent e) {
 		Stage parentStage = Utils.currentStage(e);
-		createDialogForm("/gui/ItensForm.fxml", parentStage);;
-	}
+		Itens obj = new Itens();
+		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);;
+	}	
 	
 	public void setItensService(ItensService service) {
 		this.service = service;
@@ -79,10 +81,16 @@ public class ItensListController implements Initializable {
 		tableViewItens.setItems(obsList);
 	}
 
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Itens obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			ItensFormController controller = loader.getController();
+			controller.setItens(obj);
+			controller.setItensService(new ItensService());
+			controller.subscribeDataChangeListener(this);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Insira os dados do equipamento");
@@ -95,5 +103,10 @@ public class ItensListController implements Initializable {
 		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Erro carregando tela", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 }
