@@ -30,6 +30,7 @@ public class MainViewController implements Initializable {
 		loadView("/gui/ItensList.fxml", (ItensListController controller) -> {
 			controller.setItensService(new ItensService());
 			controller.updateTableView();
+			controller.sortById();
 		});
 	}
 	

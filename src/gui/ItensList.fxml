@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="254.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensListController">
+<VBox prefHeight="258.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensListController">
    <children>
       <Label text="Lista de Itens">
          <font>
@@ -21,18 +21,18 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
-            <Button fx:id="btEditar" mnemonicParsing="false" onAction="#onBtEditarAction" text="Editar" />
-            <Button fx:id="btDeletar" mnemonicParsing="false" onAction="#onBtDeletarAction" text="Deletar" />
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNewAction" text="Novo" />
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewItens" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewItens" prefHeight="197.0" prefWidth="560.0">
       	<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
         <columns>
           <TableColumn fx:id="tableColumnId" maxWidth="50.0" minWidth="50.0" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
+          <TableColumn fx:id="tableColumnNome" maxWidth="200.0" prefWidth="75.0" text="Nome" />
             <TableColumn fx:id="tableColumnQuantidade" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
             <TableColumn fx:id="tableColumnMarca" maxWidth="150.0" minWidth="150.0" prefWidth="75.0" text="Marca" />
+            <TableColumn fx:id="tableColumnEditar" maxWidth="40.0" prefWidth="75.0" resizable="false" />
+            <TableColumn fx:id="tableColumnDeletar" maxWidth="40.0" prefWidth="75.0" resizable="false" />
         </columns>
       </TableView>
    </children>

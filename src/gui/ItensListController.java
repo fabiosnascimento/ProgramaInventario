@@ -7,10 +7,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
-import db.DBException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,9 +21,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,10 +40,6 @@ public class ItensListController implements Initializable, DataChangeListener {
 	@FXML
 	private Button btNovo;
 	@FXML
-	private Button btEditar;
-	@FXML
-	private Button btDeletar;
-	@FXML
 	private TableView<Itens> tableViewItens;
 	@FXML
 	private TableColumn<Itens, Integer> tableColumnId;
@@ -50,34 +49,23 @@ public class ItensListController implements Initializable, DataChangeListener {
 	private TableColumn<Itens, Integer> tableColumnQuantidade;
 	@FXML
 	private TableColumn<Itens, String> tableColumnMarca;
+	@FXML
+	private TableColumn<Itens, Itens> tableColumnEditar;
+	@FXML
+	private TableColumn<Itens, Itens> tableColumnDeletar;
 
 	private ObservableList<Itens> obsList;
+	
+	private Image imgEditar = new Image("editar.png", 18, 18, true, true);
+	private Image imgDeletar = new Image("deletar.png", 18, 18, true, true);
+
 
 	@FXML
-	public void onBtNovoAction(ActionEvent e) {
+	public void onBtNewAction(ActionEvent e) {
 		Stage parentStage = Utils.currentStage(e);
 		Itens obj = new Itens();
 		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
-		;
-	}
-
-	public void onBtEditarAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-		Itens obj = tableViewItens.getSelectionModel().getSelectedItem();
-		try {
-			createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
-		} catch (IllegalStateException e) {
-			Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
-		}
-	}
-
-	public void onBtDeletarAction(ActionEvent event) {
-		Itens obj = tableViewItens.getSelectionModel().getSelectedItem();
-		if (obj == null) {
-			Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
-		} else {
-			removeEntity(obj);
-		}
+		sortById();
 	}
 
 	public void setItensService(ItensService service) {
@@ -106,6 +94,8 @@ public class ItensListController implements Initializable, DataChangeListener {
 		List<Itens> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewItens.setItems(obsList);
+		initEditButtons();
+		initDeleteButtons();
 	}
 
 	private void createDialogForm(Itens obj, String absoluteName, Stage parentStage) {
@@ -137,6 +127,45 @@ public class ItensListController implements Initializable, DataChangeListener {
 		updateTableView();
 	}
 
+	private void initEditButtons() {
+		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEditar.setCellFactory(param -> new TableCell<Itens, Itens>() {
+			private final Button button = new Button("", new ImageView(imgEditar));
+
+			@Override
+			protected void updateItem(Itens obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/ItensForm.fxml", Utils.currentStage(event)));
+			}
+		});
+		sortById();
+	}
+	
+	private void initDeleteButtons() {
+		tableColumnDeletar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnDeletar.setCellFactory(param -> new TableCell<Itens, Itens>() {
+			private final Button button = new Button("", new ImageView(imgDeletar));
+
+			@Override
+			protected void updateItem(Itens obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+		sortById();
+	}
+	
 	private void removeEntity(Itens obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Atenção", "Deseja remover este item?");
 
@@ -152,5 +181,9 @@ public class ItensListController implements Initializable, DataChangeListener {
 				Alerts.showAlert("Atenção", null, "Selecione um item", AlertType.INFORMATION);
 			}
 		}
+	}
+	
+	public void sortById() {
+		tableViewItens.getSortOrder().add(tableColumnId);
 	}
 }

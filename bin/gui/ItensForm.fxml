@@ -29,7 +29,7 @@
             <Label text="Nome" GridPane.rowIndex="1" />
             <Label text="Quantidade" GridPane.rowIndex="2" />
             <Label text="Marca" GridPane.rowIndex="3" />
-            <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="txtId" editable="false" focusTraversable="false" GridPane.columnIndex="1" />
             <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtMarca" GridPane.columnIndex="1" GridPane.rowIndex="3" />
