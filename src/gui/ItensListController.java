@@ -57,7 +57,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 	private ObservableList<Itens> obsList;
 	
 	private Image imgEditar = new Image("editar.png", 18, 18, true, true);
-	private Image imgDeletar = new Image("deletar.png", 18, 18, true, true);
+	private Image imgDeletar = new Image("lixeira.png", 18, 18, true, true);
 
 
 	@FXML
