@@ -26,6 +26,10 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemAbout;
 	@FXML
 	private MenuItem menuItemRecarga;
+	@FXML
+	private MenuItem meuItemLista;
+	@FXML
+	private MenuItem menuItemListaImpressora;
 	
 	@FXML
 	public void onMenuItemItemAction() {
@@ -39,6 +43,11 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemAboutAction() {
 		loadView("/gui/About.fxml", x -> {});
+	}
+	
+	@FXML
+	private void onMenuItemListaImpressoraAction() {
+		loadView("/gui/ImpressorasList.fxml", x -> {});
 	}
 	
 	public void onMenuItemRecargaAction() {

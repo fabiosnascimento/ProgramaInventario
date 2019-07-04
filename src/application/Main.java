@@ -23,7 +23,7 @@ public class Main extends Application {
 			
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Programa de Inventário");
+			primaryStage.setTitle("Sistema de Inventário");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
