@@ -30,20 +30,21 @@
             <Label text="Modelo" GridPane.rowIndex="1" />
             <Label text="Setor" GridPane.rowIndex="2" />
             <Label text="Apelido" GridPane.rowIndex="3" />
+            <TextField fx:id="txtId" editable="false" focusTraversable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="txtModelo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtSetor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtApelido" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblErroApelido" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <Button fx:id="btSalvar" mnemonicParsing="false" text="Salvar" />
-                  <Button fx:id="btCancelar" mnemonicParsing="false" text="Cancelar">
+                  <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvarAction" text="Salvar" />
+                  <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#onBtCancelarAction" text="Cancelar">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
-            <TextField fx:id="txtModelo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtSetor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtApelido" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

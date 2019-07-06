@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ImpressorasService;
 import model.services.ItensService;
 
 public class MainViewController implements Initializable {
@@ -47,7 +48,10 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	private void onMenuItemListaImpressoraAction() {
-		loadView("/gui/ImpressorasList.fxml", x -> {});
+		loadView("/gui/ImpressorasList.fxml", (ImpressorasListController controller) -> {
+			controller.setImpressorasService(new ImpressorasService());
+			controller.updateTableView();
+		});
 	}
 	
 	public void onMenuItemRecargaAction() {
