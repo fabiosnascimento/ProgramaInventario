@@ -56,6 +56,7 @@ public class MainViewController implements Initializable {
 	
 	public void onMenuItemRecargaAction() {
 		loadView("/gui/RecargaList.fxml", (RecargaListController controller) -> {
+			controller.setImpressorasService(new ImpressorasService());
 			controller.atualizaImpressoras();
 		});
 	}

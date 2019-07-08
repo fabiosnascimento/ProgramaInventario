@@ -31,7 +31,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Impressora;
-import model.entities.Itens;
 import model.services.ImpressorasService;
 
 public class ImpressorasListController implements Initializable, DataChangeListener {
@@ -59,16 +58,16 @@ public class ImpressorasListController implements Initializable, DataChangeListe
 	
 	private Image imgEditar = new Image("editar.png", 18, 18, true, true);
 	private Image imgDeletar = new Image("lixeira.png", 18, 18, true, true);
+
+	public void setImpressorasService(ImpressorasService service) {
+		this.service = service;
+	}
 	
 	@FXML
 	public void onBtNewAction(ActionEvent e) {
 		Stage parentStage = Utils.currentStage(e);
 		Impressora obj = new Impressora();
 		createDialogForm(obj, "/gui/ImpressorasForm.fxml", parentStage);
-	}
-
-	public void setImpressorasService(ImpressorasService service) {
-		this.service = service;
 	}
 
 	private void createDialogForm(Impressora obj, String absoluteName, Stage parentStage) {

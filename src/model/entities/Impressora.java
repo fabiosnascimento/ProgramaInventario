@@ -68,6 +68,7 @@ public class Impressora implements Serializable {
 
 	@Override
 	public String toString() {
-		return getNome();
+		return getApelido();
 	}
 }
+
