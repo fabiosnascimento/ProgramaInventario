@@ -25,7 +25,7 @@ public class ImpressorasDaoJDBC implements ImpressorasDao {
 	public void insert(Impressora obj) {
 		PreparedStatement st = null;
 		try {
-			st = con.prepareStatement("INSERT INTO impressoras (modelo, setor, apelido) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			st = con.prepareStatement("INSERT INTO tbl_listaimpressora1 (modelo, setor, apelido) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getModelo());
 			st.setString(2, obj.getSetor());
 			st.setString(3, obj.getApelido());
@@ -51,7 +51,7 @@ public class ImpressorasDaoJDBC implements ImpressorasDao {
 	public void update(Impressora obj) {
 		PreparedStatement st = null;
 		try {
-			st = con.prepareStatement("UPDATE impressoras SET modelo = ?, setor = ?, apelido = ? WHERE id = ?");
+			st = con.prepareStatement("UPDATE tbl_listaimpressora1 SET modelo = ?, setor = ?, apelido = ? WHERE id = ?");
 			st.setString(1, obj.getModelo());
 			st.setString(2, obj.getSetor());
 			st.setString(3, obj.getApelido());
@@ -69,7 +69,7 @@ public class ImpressorasDaoJDBC implements ImpressorasDao {
 	public void removeById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = con.prepareStatement("DELETE FROM impressoras WHERE id = ?");
+			st = con.prepareStatement("DELETE FROM tbl_listaimpressora1 WHERE id = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 		} catch(SQLException e) {
@@ -84,7 +84,7 @@ public class ImpressorasDaoJDBC implements ImpressorasDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = con.prepareStatement("SELECT impressoras.* FROM impressoras WHERE id = ?");
+			st = con.prepareStatement("SELECT tbl_listaimpressora1.* FROM impressoras WHERE id = ?");
 			st.setInt(1, id);
 			
 			rs = st.executeQuery();
@@ -106,7 +106,7 @@ public class ImpressorasDaoJDBC implements ImpressorasDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = con.prepareStatement("SELECT * FROM impressoras");
+			st = con.prepareStatement("SELECT * FROM tbl_listaimpressora1");
 			
 			rs = st.executeQuery();
 			List<Impressora> list = new ArrayList<>();

@@ -43,7 +43,7 @@ public class RecargaListController implements Initializable {
 
 	private ObservableList<Impressora> obsNomeImpressoras;
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy;HH:mm:ss");
 
 	public void setImpressorasService(ImpressorasService service) {
 		this.service = service;
@@ -82,9 +82,9 @@ public class RecargaListController implements Initializable {
 		entity = comboBoxImpressora.getSelectionModel().getSelectedItem();
 		Optional<ButtonType> result = Alerts.showConfirmation("Recarga", "Deseja recarregar a impressora " + entity.getApelido() + "?");
 		if (result.get() == ButtonType.OK) {
-			String path = "c:\\temp\\datas.txt";
+			String path = "c:\\temp\\datas.csv";
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-				bw.write(entity.getApelido() + " " + sdf.format(new Date()));
+				bw.write(entity.getApelido() + ";" + sdf.format(new Date()));
 				bw.newLine();
 			} catch (IOException event) {
 				Alerts.showAlert("Erro", null, event.getMessage(), AlertType.ERROR);
@@ -103,14 +103,14 @@ public class RecargaListController implements Initializable {
 	private void exibeDados() {
 		entity = comboBoxImpressora.getSelectionModel().getSelectedItem();
 		String apelido = entity.getApelido();
-		String path = "c:\\temp\\datas.txt";
+		String path = "c:\\temp\\datas.csv";
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			txtData.clear();
 			String line = br.readLine();
 			while (line != null) {
-				String[] vetor = line.split(" ");
+				String[] vetor = line.split(";");
 				if (vetor[0].equals(apelido)) {
-					txtData.appendText(line + "\n");
+					txtData.appendText(vetor[0] + " " + vetor[1] + " " + vetor[2] + "\n");
 				}
 				line = br.readLine();
 			}

@@ -16,6 +16,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.entities.FabricanteImpressora;
+import model.services.CadFabricanteImpressoraService;
 import model.services.ImpressorasService;
 import model.services.ItensService;
 
@@ -31,6 +33,8 @@ public class MainViewController implements Initializable {
 	private MenuItem meuItemLista;
 	@FXML
 	private MenuItem menuItemListaImpressora;
+	@FXML
+	private MenuItem menuItemFabricanteImpressora;
 	
 	@FXML
 	public void onMenuItemItemAction() {
@@ -54,11 +58,25 @@ public class MainViewController implements Initializable {
 		});
 	}
 	
+	@FXML
+	private void onMenuItemFabricanteImpressoraAction() {
+		loadView("/gui/CadFabricanteImpressora.fxml", (CadFabricanteImpressoraController controller) -> {
+			controller.setFabricanteImpressoraService(new CadFabricanteImpressoraService());
+			FabricanteImpressora obj = new FabricanteImpressora();
+			controller.setFabricanteImpressora(obj);
+			controller.updateTableView();
+		});
+	}
+	
 	public void onMenuItemRecargaAction() {
 		loadView("/gui/RecargaList.fxml", (RecargaListController controller) -> {
 			controller.setImpressorasService(new ImpressorasService());
 			controller.atualizaImpressoras();
 		});
+	}
+	
+	public void onMenuItemCadastroImpressoraAction() {
+		loadView("/gui/CadImpressoraList.fxml", x -> {});
 	}
 	
 	@Override
