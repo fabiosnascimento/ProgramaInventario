@@ -51,14 +51,6 @@ public class MainViewController implements Initializable {
 	}
 	
 	@FXML
-	private void onMenuItemListaImpressoraAction() {
-		loadView("/gui/ImpressorasList.fxml", (ImpressorasListController controller) -> {
-			controller.setImpressorasService(new ImpressorasService());
-			controller.updateTableView();
-		});
-	}
-	
-	@FXML
 	private void onMenuItemFabricanteImpressoraAction() {
 		loadView("/gui/CadFabricanteImpressora.fxml", (CadFabricanteImpressoraController controller) -> {
 			controller.setFabricanteImpressoraService(new CadFabricanteImpressoraService());
