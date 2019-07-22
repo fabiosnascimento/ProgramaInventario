@@ -163,7 +163,6 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			exception.addError("vazio", "O campo não pode estar vazio");
 		}
-		obj.setIdFabricanteImpressora(entity.getIdFabricanteImpressora());
 		obj.setFabricante(txtNome.getText().toUpperCase().trim());
 		List<FabricanteImpressora> list = service.findAll();
 		if (list.contains(obj)) {
