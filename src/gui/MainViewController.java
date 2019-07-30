@@ -17,8 +17,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.entities.FabricanteImpressora;
+import model.entities.ModeloImpressora;
 import model.services.CadFabricanteImpressoraService;
-import model.services.ImpressorasService;
+import model.services.CadModeloImpressoraService;
 import model.services.ItensService;
 
 public class MainViewController implements Initializable {
@@ -35,6 +36,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemListaImpressora;
 	@FXML
 	private MenuItem menuItemFabricanteImpressora;
+	@FXML
+	private MenuItem menuItemModeloImpressora;
 	
 	@FXML
 	public void onMenuItemItemAction() {
@@ -53,22 +56,30 @@ public class MainViewController implements Initializable {
 	@FXML
 	private void onMenuItemFabricanteImpressoraAction() {
 		loadView("/gui/CadFabricanteImpressora.fxml", (CadFabricanteImpressoraController controller) -> {
-			controller.setFabricanteImpressoraService(new CadFabricanteImpressoraService());
+			controller.setCadFabricanteImpressoraService(new CadFabricanteImpressoraService());
 			FabricanteImpressora obj = new FabricanteImpressora();
 			controller.setFabricanteImpressora(obj);
 			controller.updateTableView();
 		});
 	}
 	
-	public void onMenuItemRecargaAction() {
-		loadView("/gui/RecargaList.fxml", (RecargaListController controller) -> {
-			controller.setImpressorasService(new ImpressorasService());
-			controller.atualizaImpressoras();
+	@FXML
+	private void onMenuItemModeloImpressoraAction() {
+		loadView("/gui/CadModeloImpressora.fxml", (CadModeloImpressoraController controller) -> {
+			controller.setCadFabricanteImpressoraService(new CadFabricanteImpressoraService());
+			controller.setCadModeloImpressoraService(new CadModeloImpressoraService());
+			ModeloImpressora obj = new ModeloImpressora();
+			controller.setModeloImpressora(obj);
+			controller.atualizaComboBoxImpressora();
 		});
 	}
 	
-	public void onMenuItemCadastroImpressoraAction() {
-		loadView("/gui/CadImpressoraList.fxml", x -> {});
+	@FXML
+	public void onMenuItemRecargaAction() {
+		loadView("/gui/RecargaList.fxml", (RecargaListController controller) -> {
+			controller.setCadModeloImpressoraService(new CadModeloImpressoraService());
+			controller.atualizaImpressoras();
+		});
 	}
 	
 	@Override

@@ -26,26 +26,26 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import model.entities.Impressora;
-import model.services.ImpressorasService;
+import model.entities.ModeloImpressora;
+import model.services.CadModeloImpressoraService;
 
 public class RecargaListController implements Initializable {
 	
-	private Impressora entity;
-	private ImpressorasService service;
+	private ModeloImpressora entity;
+	private CadModeloImpressoraService service;
 
 	@FXML
-	private ComboBox<Impressora> comboBoxImpressora;
+	private ComboBox<ModeloImpressora> comboBoxImpressora;
 	@FXML
 	private Button btRecarregar;
 	@FXML
 	private TextArea txtData;
 
-	private ObservableList<Impressora> obsNomeImpressoras;
+	private ObservableList<ModeloImpressora> obsNomeImpressoras;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy;HH:mm:ss");
 
-	public void setImpressorasService(ImpressorasService service) {
+	public void setCadModeloImpressoraService(CadModeloImpressoraService service) {
 		this.service = service;
 	}
 
@@ -58,7 +58,7 @@ public class RecargaListController implements Initializable {
 		if (service == null) {
 			throw new IllegalStateException("Service não inicializado");
 		}
-		List<Impressora> list = service.findAll();
+		List<ModeloImpressora> list = service.findAll();
 		obsNomeImpressoras = FXCollections.observableArrayList(list);
 		comboBoxImpressora.setItems(obsNomeImpressoras);
 		comboBoxImpressora.setOnAction(new EventHandler<ActionEvent>() {
@@ -72,7 +72,7 @@ public class RecargaListController implements Initializable {
 	}
 	
 	public void updateComboBoxItens() {
-		List<Impressora> list = service.findAll();
+		List<ModeloImpressora> list = service.findAll();
 		obsNomeImpressoras = FXCollections.observableArrayList(list);
 		comboBoxImpressora.setItems(obsNomeImpressoras);
 	}
@@ -80,11 +80,11 @@ public class RecargaListController implements Initializable {
 	@FXML
 	public void onBtRecarregarAction(ActionEvent e) {
 		entity = comboBoxImpressora.getSelectionModel().getSelectedItem();
-		Optional<ButtonType> result = Alerts.showConfirmation("Recarga", "Deseja recarregar a impressora " + entity.getApelido() + "?");
+		Optional<ButtonType> result = Alerts.showConfirmation("Recarga", "Deseja recarregar a impressora " + entity.getModelo() + "?");
 		if (result.get() == ButtonType.OK) {
 			String path = "c:\\temp\\datas.csv";
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-				bw.write(entity.getApelido() + ";" + sdf.format(new Date()));
+				bw.write(entity.getModelo() + ";" + sdf.format(new Date()));
 				bw.newLine();
 			} catch (IOException event) {
 				Alerts.showAlert("Erro", null, event.getMessage(), AlertType.ERROR);
@@ -102,7 +102,7 @@ public class RecargaListController implements Initializable {
 
 	private void exibeDados() {
 		entity = comboBoxImpressora.getSelectionModel().getSelectedItem();
-		String apelido = entity.getApelido();
+		String apelido = entity.getModelo();
 		String path = "c:\\temp\\datas.csv";
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			txtData.clear();

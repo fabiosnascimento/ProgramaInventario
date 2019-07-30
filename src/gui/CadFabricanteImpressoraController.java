@@ -55,15 +55,11 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 	@FXML
 	private TableView<FabricanteImpressora> tableViewFabricante;
 	@FXML
-	private TableColumn<FabricanteImpressora, Integer> tableColumnId;
-	@FXML
 	private TableColumn<FabricanteImpressora, String> tableColumnFabricante;
 	@FXML
 	private TableColumn<FabricanteImpressora, FabricanteImpressora> tableColumnEditar;
 	@FXML
 	private TableColumn<FabricanteImpressora, FabricanteImpressora> tableColumnDeletar;
-	
-	private ValidationException exception = new ValidationException("Erro de validação");
 	
 	private ObservableList<FabricanteImpressora> obsList;
 	
@@ -74,7 +70,7 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 		this.entity = entity;
 	}
 
-	public void setFabricanteImpressoraService(CadFabricanteImpressoraService service) {
+	public void setCadFabricanteImpressoraService(CadFabricanteImpressoraService service) {
 		this.service = service;
 	}
 	
@@ -98,7 +94,7 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 		if (entity == null) {
 			throw new IllegalStateException("Entity não iniciado");
 		}
-		if(service == null) {
+		if (service == null) {
 			throw new IllegalStateException("Service não iniciado");
 		}
 		try {
@@ -139,7 +135,6 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("IdFabricanteImpressora"));
 		tableColumnFabricante.setCellValueFactory(new PropertyValueFactory<>("Fabricante"));
 		subscribeDataChangeListener(this);
 		
@@ -160,9 +155,13 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 	
 	private FabricanteImpressora getTextFieldData() {
 		FabricanteImpressora obj = new FabricanteImpressora();
+		
+		ValidationException exception = new ValidationException("Erro de validação");
+		
 		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
 			exception.addError("vazio", "O campo não pode estar vazio");
 		}
+		
 		obj.setFabricante(txtNome.getText().toUpperCase().trim());
 		List<FabricanteImpressora> list = service.findAll();
 		if (list.contains(obj)) {

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="325.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadModeloImpressoraController">
+   <children>
+      <Label text="Cadastro de Modelo">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <HBox prefHeight="31.0" prefWidth="604.0">
+         <children>
+            <Label text="Fabricante">
+               <padding>
+                  <Insets left="5.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label text="Modelo">
+               <padding>
+                  <Insets left="100.0" top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="33.0" prefWidth="604.0">
+         <children>
+            <ComboBox fx:id="comboBoxFabricante" prefWidth="150.0" />
+            <TextField fx:id="txtModelo" prefHeight="25.0" prefWidth="202.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvarAction" text="Salvar">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
+            <Label fx:id="lblErroModelo" textFill="RED">
+               <padding>
+                  <Insets left="2.0" top="5.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </HBox>
+      <TableView fx:id="tableViewImpressora" prefHeight="232.0" prefWidth="604.0">
+        <columns>
+          <TableColumn fx:id="tableColumnFabricante" prefWidth="126.0" text="Fabricante" />
+            <TableColumn fx:id="tableColumnIdModelo" prefWidth="75.0" text="idModelo" visible="false" />
+          <TableColumn fx:id="tableColumnModelo" prefWidth="184.0" text="Modelo" />
+            <TableColumn fx:id="tableColumnEditar" prefWidth="50.0" />
+            <TableColumn fx:id="tableColumnDeletar" prefWidth="51.0" />
+        </columns>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </TableView>
+   </children>
+</VBox>

@@ -60,7 +60,6 @@ public class FabricanteImpressora implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FabricanteImpressora [idFabricanteImpressora=" + idFabricanteImpressora + ", fabricante=" + fabricante
-				+ "]";
+		return getFabricante();
 	}
 }
