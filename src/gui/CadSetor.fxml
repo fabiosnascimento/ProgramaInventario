@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="321.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadSetorController">
+   <children>
+      <Label text="Cadastro de Setor">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <Label text="Nome">
+         <padding>
+            <Insets left="5.0" top="10.0" />
+         </padding>
+      </Label>
+      <HBox prefHeight="55.0" prefWidth="601.0">
+         <children>
+            <TextField fx:id="txtNomeSetor" prefHeight="25.0" prefWidth="205.0" />
+            <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvarAction" text="Salvar">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
+            <Label fx:id="lblErroNome" textFill="RED">
+               <HBox.margin>
+                  <Insets left="2.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
+      </HBox>
+      <TableView fx:id="tableViewSetor" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="tableColumnSetor" prefWidth="147.0" text="Setor" />
+          <TableColumn fx:id="tableColumnEditar" prefWidth="44.0" />
+            <TableColumn fx:id="tableColumnDeletar" prefWidth="43.0" />
+        </columns>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </TableView>
+   </children>
+</VBox>

@@ -18,8 +18,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.entities.FabricanteImpressora;
 import model.entities.ModeloImpressora;
+import model.entities.Setor;
 import model.services.CadFabricanteImpressoraService;
 import model.services.CadModeloImpressoraService;
+import model.services.CadSetorService;
 import model.services.ItensService;
 
 public class MainViewController implements Initializable {
@@ -38,6 +40,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemFabricanteImpressora;
 	@FXML
 	private MenuItem menuItemModeloImpressora;
+	@FXML
+	private MenuItem menuItemSetor;
 	
 	@FXML
 	public void onMenuItemItemAction() {
@@ -71,6 +75,16 @@ public class MainViewController implements Initializable {
 			ModeloImpressora obj = new ModeloImpressora();
 			controller.setModeloImpressora(obj);
 			controller.atualizaComboBoxImpressora();
+		});
+	}
+	
+	@FXML
+	private void onMenuItemSetorAction() {
+		loadView("/gui/CadSetor.fxml", (CadSetorController controller) -> {
+			controller.setCadSetorService(new CadSetorService());
+			Setor obj = new Setor();
+			controller.setSetor(obj);
+			controller.updateTableView();
 		});
 	}
 	
