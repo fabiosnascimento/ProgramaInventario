@@ -6,26 +6,26 @@ public class ModeloImpressora implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer idFabricanteImpressora;
+	private FabricanteImpressora idFabricanteImpressora;
 	private Integer idModeloImpressora;
-	private String fabricante;
+	private FabricanteImpressora fabricante;
 	private String modelo;
 	
-	public ModeloImpressora(Integer idFabricanteImpressora ,Integer idModeloImpressora, String fabricante, String modelo) {
+	public ModeloImpressora(FabricanteImpressora idFabricanteImpressora, Integer idModeloImpressora, FabricanteImpressora fabricante, String modelo) {
 		this.idFabricanteImpressora = idFabricanteImpressora;
 		this.idModeloImpressora = idModeloImpressora;
 		this.fabricante = fabricante;
 		this.modelo = modelo;
 	}
-	
+
 	public ModeloImpressora() {
 	}
 	
-	public Integer getIdFabricanteImpressora() {
+	public FabricanteImpressora getIdFabricanteImpressora() {
 		return idFabricanteImpressora;
 	}
-
-	public void setIdFabricanteImpressora(Integer idFabricanteImpressora) {
+	
+	public void setIdFabricanteImpressora(FabricanteImpressora idFabricanteImpressora) {
 		this.idFabricanteImpressora = idFabricanteImpressora;
 	}
 
@@ -37,11 +37,11 @@ public class ModeloImpressora implements Serializable {
 		this.idModeloImpressora = idModeloImpressora;
 	}
 
-	public String getFabricante() {
+	public FabricanteImpressora getFabricante() {
 		return fabricante;
 	}
-
-	public void setFabricante(String fabricante) {
+	
+	public void setFabricante(FabricanteImpressora fabricante) {
 		this.fabricante = fabricante;
 	}
 

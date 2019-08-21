@@ -219,8 +219,8 @@ public class CadModeloImpressoraController implements Initializable, DataChangeL
 			exception.addError("idnulo", "Selecione um fabricante");
 			throw exception;
 		}
-		Integer id = fabricanteEntity.getIdFabricanteImpressora();
-		obj.setIdFabricanteImpressora(id);
+
+		obj.setIdFabricanteImpressora(fabricanteEntity);
 		
 		if (txtModelo.getText() == null || txtModelo.getText().trim().equals("")) {
 			exception.addError("vazio", "O campo não pode estar vazio");

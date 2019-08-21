@@ -124,6 +124,6 @@ public class EditModeloImpressoraController implements Initializable {
 			throw new IllegalStateException("Entity vazia");
 		}
 		txtNome.setText(modeloEntity.getModelo());
-		lblFabricante.setText(modeloEntity.getFabricante());
+		lblFabricante.setText(modeloEntity.getFabricante().getFabricante());
 	}
 }

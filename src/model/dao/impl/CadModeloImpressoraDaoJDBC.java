@@ -11,6 +11,7 @@ import java.util.List;
 import db.DB;
 import db.DBException;
 import model.dao.CadModeloImpressoraDao;
+import model.entities.FabricanteImpressora;
 import model.entities.ModeloImpressora;
 
 public class CadModeloImpressoraDaoJDBC implements CadModeloImpressoraDao {
@@ -26,7 +27,7 @@ public class CadModeloImpressoraDaoJDBC implements CadModeloImpressoraDao {
 		PreparedStatement st = null;
 		try {
 			st = con.prepareStatement("INSERT INTO tbl_modeloimpressora (idfabricanteimpressora, modelo) VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
-			st.setInt(1, obj.getIdFabricanteImpressora());
+			st.setInt(1, obj.getIdFabricanteImpressora().getIdFabricanteImpressora());
 			st.setString(2, obj.getModelo());
 			
 			int rowsAffected = st.executeUpdate();
@@ -131,9 +132,11 @@ public class CadModeloImpressoraDaoJDBC implements CadModeloImpressoraDao {
 	
 	private ModeloImpressora instantiateModeloImpressora(ResultSet rs) throws SQLException {
 		ModeloImpressora modelo = new ModeloImpressora();
-		modelo.setFabricante(rs.getString("fabricante"));
+		FabricanteImpressora fabricante = new FabricanteImpressora();
+		fabricante.setFabricante(rs.getString("fabricante"));
 		modelo.setIdModeloImpressora(rs.getInt("idmodeloimpressora"));
 		modelo.setModelo(rs.getString("modelo"));
+		modelo.setFabricante(fabricante);
 		return modelo;
 	}
 }
