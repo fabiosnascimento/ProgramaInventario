@@ -19,14 +19,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.entities.Itens;
+import model.entities.Material;
 import model.exceptions.ValidationException;
-import model.services.ItensService;
+import model.services.MaterialService;
 
 public class MateriaisFormController implements Initializable {
 
-	private Itens entity;
-	private ItensService service;
+	private Material entity;
+	private MaterialService service;
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
@@ -48,11 +48,11 @@ public class MateriaisFormController implements Initializable {
 	@FXML
 	private Label lblErroMarca;
 	
-	public void setItens (Itens entity) {
+	public void setItens (Material entity) {
 		this.entity = entity;
 	}
 	
-	public void setItensService(ItensService service) {
+	public void setItensService(MaterialService service) {
 		this.service = service;
 	}
 	
@@ -86,8 +86,8 @@ public class MateriaisFormController implements Initializable {
 		}
 	}
 
-	private Itens getFormData() {
-		Itens obj = new Itens();
+	private Material getFormData() {
+		Material obj = new Material();
 		
 		ValidationException exception = new ValidationException("Erro de validação");
 		

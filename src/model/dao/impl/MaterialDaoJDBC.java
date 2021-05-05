@@ -10,19 +10,19 @@ import java.util.List;
 
 import db.DB;
 import db.DBException;
-import model.dao.ItensDao;
-import model.entities.Itens;
+import model.dao.MaterialDao;
+import model.entities.Material;
 
-public class ItensDaoJDBC implements ItensDao {
+public class MaterialDaoJDBC implements MaterialDao {
 
 	private Connection con;
 
-	public ItensDaoJDBC(Connection con) {
+	public MaterialDaoJDBC(Connection con) {
 		this.con = con;
 	}
 
 	@Override
-	public void insert(Itens obj) {
+	public void insert(Material obj) {
 		PreparedStatement st = null;
 		try {
 			st = con.prepareStatement("INSERT INTO itens (nome, quantidade, marca) VALUES (?, ?, ?)",
@@ -51,7 +51,7 @@ public class ItensDaoJDBC implements ItensDao {
 	}
 
 	@Override
-	public void update(Itens obj) {
+	public void update(Material obj) {
 		PreparedStatement st = null;
 		try {
 			st = con.prepareStatement("UPDATE itens SET nome = ?, quantidade = ?, marca = ? WHERE id = ?");
@@ -84,7 +84,7 @@ public class ItensDaoJDBC implements ItensDao {
 	}
 
 	@Override
-	public Itens findById(Integer id) {
+	public Material findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -93,8 +93,8 @@ public class ItensDaoJDBC implements ItensDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Itens item = instantiateItens(rs);
-				return item;
+				Material material = instantiateMaterial(rs);
+				return material;
 			}
 			return null;
 		} catch (SQLException e) {
@@ -106,17 +106,17 @@ public class ItensDaoJDBC implements ItensDao {
 	}
 
 	@Override
-	public List<Itens> findAll() {
+	public List<Material> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = con.prepareStatement("SELECT * FROM itens ORDER BY nome");
 			rs = st.executeQuery();
-			List<Itens> list = new ArrayList<>();
+			List<Material> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Itens item = instantiateItens(rs);
-				list.add(item);
+				Material material = instantiateMaterial(rs);
+				list.add(material);
 			}
 			return list;
 		} catch (SQLException e) {
@@ -124,12 +124,12 @@ public class ItensDaoJDBC implements ItensDao {
 		}
 	}
 
-	private Itens instantiateItens(ResultSet rs) throws SQLException {
-		Itens item = new Itens();
-		item.setId(rs.getInt("id"));
-		item.setNome(rs.getString("nome"));
-		item.setQuantidade(rs.getInt("quantidade"));
-		item.setMarca(rs.getString("marca"));
-		return item;
+	private Material instantiateMaterial(ResultSet rs) throws SQLException {
+		Material material = new Material();
+		material.setId(rs.getInt("id"));
+		material.setNome(rs.getString("nome"));
+		material.setQuantidade(rs.getInt("quantidade"));
+		material.setMarca(rs.getString("marca"));
+		return material;
 	}
 }

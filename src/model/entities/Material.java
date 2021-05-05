@@ -2,7 +2,7 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Itens implements Serializable {
+public class Material implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -11,10 +11,10 @@ public class Itens implements Serializable {
 	private Integer quantidade;
 	private String marca;
 	
-	public Itens() {
+	public Material() {
 	}
 
-	public Itens(Integer id, String nome, Integer quantidade, String marca) {
+	public Material(Integer id, String nome, Integer quantidade, String marca) {
 		this.id = id;
 		this.nome = nome;
 		this.quantidade = quantidade;
@@ -69,7 +69,7 @@ public class Itens implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Itens other = (Itens) obj;
+		Material other = (Material) obj;
 		if (id != other.id)
 			return false;
 		return true;
@@ -77,6 +77,6 @@ public class Itens implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Itens [id=" + id + ", nome=" + nome + ", quantidade=" + quantidade + ", marca=" + marca + "]";
+		return "Materiais [id=" + id + ", nome=" + nome + ", quantidade=" + quantidade + ", marca=" + marca + "]";
 	}
 }

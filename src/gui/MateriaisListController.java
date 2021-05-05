@@ -30,31 +30,31 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Itens;
-import model.services.ItensService;
+import model.entities.Material;
+import model.services.MaterialService;
 
 public class MateriaisListController implements Initializable, DataChangeListener {
 
-	private ItensService service;
+	private MaterialService service;
 
 	@FXML
 	private Button btNovo;
 	@FXML
-	private TableView<Itens> tableViewMateriais;
+	private TableView<Material> tableViewMateriais;
 	@FXML
-	private TableColumn<Itens, Integer> tableColumnId;
+	private TableColumn<Material, Integer> tableColumnId;
 	@FXML
-	private TableColumn<Itens, String> tableColumnNome;
+	private TableColumn<Material, String> tableColumnNome;
 	@FXML
-	private TableColumn<Itens, Integer> tableColumnQuantidade;
+	private TableColumn<Material, Integer> tableColumnQuantidade;
 	@FXML
-	private TableColumn<Itens, String> tableColumnMarca;
+	private TableColumn<Material, String> tableColumnMarca;
 	@FXML
-	private TableColumn<Itens, Itens> tableColumnEditar;
+	private TableColumn<Material, Material> tableColumnEditar;
 	@FXML
-	private TableColumn<Itens, Itens> tableColumnDeletar;
+	private TableColumn<Material, Material> tableColumnDeletar;
 
-	private ObservableList<Itens> obsList;
+	private ObservableList<Material> obsList;
 	
 	private Image imgEditar = new Image("editar.png", 18, 18, true, true);
 	private Image imgDeletar = new Image("lixeira.png", 18, 18, true, true);
@@ -63,12 +63,12 @@ public class MateriaisListController implements Initializable, DataChangeListene
 	@FXML
 	public void onBtNewAction(ActionEvent e) {
 		Stage parentStage = Utils.currentStage(e);
-		Itens obj = new Itens();
+		Material obj = new Material();
 		createDialogForm(obj, "/gui/MateriaisForm.fxml", parentStage);
 		sortById();
 	}
 
-	public void setItensService(ItensService service) {
+	public void setItensService(MaterialService service) {
 		this.service = service;
 	}
 
@@ -91,21 +91,21 @@ public class MateriaisListController implements Initializable, DataChangeListene
 		if (service == null) {
 			throw new IllegalStateException("Service não inicializado");
 		}
-		List<Itens> list = service.findAll();
+		List<Material> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewMateriais.setItems(obsList);
 		initEditButtons();
 		initDeleteButtons();
 	}
 
-	private void createDialogForm(Itens obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Material obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
 			MateriaisFormController controller = loader.getController();
 			controller.setItens(obj);
-			controller.setItensService(new ItensService());
+			controller.setItensService(new MaterialService());
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -129,11 +129,11 @@ public class MateriaisListController implements Initializable, DataChangeListene
 
 	private void initEditButtons() {
 		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEditar.setCellFactory(param -> new TableCell<Itens, Itens>() {
+		tableColumnEditar.setCellFactory(param -> new TableCell<Material, Material>() {
 			private final Button button = new Button("", new ImageView(imgEditar));
 
 			@Override
-			protected void updateItem(Itens obj, boolean empty) {
+			protected void updateItem(Material obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -149,11 +149,11 @@ public class MateriaisListController implements Initializable, DataChangeListene
 	
 	private void initDeleteButtons() {
 		tableColumnDeletar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnDeletar.setCellFactory(param -> new TableCell<Itens, Itens>() {
+		tableColumnDeletar.setCellFactory(param -> new TableCell<Material, Material>() {
 			private final Button button = new Button("", new ImageView(imgDeletar));
 
 			@Override
-			protected void updateItem(Itens obj, boolean empty) {
+			protected void updateItem(Material obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -166,7 +166,7 @@ public class MateriaisListController implements Initializable, DataChangeListene
 		sortById();
 	}
 	
-	private void removeEntity(Itens obj) {
+	private void removeEntity(Material obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Atenção", "Deseja remover este material?");
 
 		if (result.get() == ButtonType.OK) {

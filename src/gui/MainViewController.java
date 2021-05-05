@@ -22,7 +22,7 @@ import model.entities.Setor;
 import model.services.CadFabricanteImpressoraService;
 import model.services.CadModeloImpressoraService;
 import model.services.CadSetorService;
-import model.services.ItensService;
+import model.services.MaterialService;
 
 public class MainViewController implements Initializable {
 
@@ -46,7 +46,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemMaterialAction() {
 		loadView("/gui/MateriaisList.fxml", (MateriaisListController controller) -> {
-			controller.setItensService(new ItensService());
+			controller.setItensService(new MaterialService());
 			controller.updateTableView();
 			controller.sortById();
 		});

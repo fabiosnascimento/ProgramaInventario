@@ -4,12 +4,12 @@ import db.DB;
 import model.dao.impl.CadFabricanteImpressoraDaoJDBC;
 import model.dao.impl.CadModeloImpressoraDaoJDBC;
 import model.dao.impl.CadSetorDaoJDBC;
-import model.dao.impl.ItensDaoJDBC;
+import model.dao.impl.MaterialDaoJDBC;
 
 public class DaoFactory {
 
-	public static ItensDao createItensDao() {
-		return new ItensDaoJDBC(DB.getConnection());
+	public static MaterialDao createMaterialDao() {
+		return new MaterialDaoJDBC(DB.getConnection());
 	}
 	
 	public static CadFabricanteImpressoraDao createCadFabricanteImpressoraDao() {
