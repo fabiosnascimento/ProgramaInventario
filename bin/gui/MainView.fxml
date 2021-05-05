@@ -26,6 +26,7 @@
                           </items>
                         </Menu>
                         <MenuItem fx:id="menuItemSetor" mnemonicParsing="false" onAction="#onMenuItemSetorAction" text="Setor" />
+                        <MenuItem fx:id="meuItemImpressoraSetor" mnemonicParsing="false" onAction="#onMenuItemImpressoraSetorAction" text="Impressora por setor" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Impressoras">

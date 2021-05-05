@@ -25,7 +25,7 @@ public class MaterialDaoJDBC implements MaterialDao {
 	public void insert(Material obj) {
 		PreparedStatement st = null;
 		try {
-			st = con.prepareStatement("INSERT INTO itens (nome, quantidade, marca) VALUES (?, ?, ?)",
+			st = con.prepareStatement("INSERT INTO tbl_material (nome, quantidade, marca) VALUES (?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getNome());
 			st.setInt(2, obj.getQuantidade());
@@ -54,7 +54,7 @@ public class MaterialDaoJDBC implements MaterialDao {
 	public void update(Material obj) {
 		PreparedStatement st = null;
 		try {
-			st = con.prepareStatement("UPDATE itens SET nome = ?, quantidade = ?, marca = ? WHERE id = ?");
+			st = con.prepareStatement("UPDATE tbl_material SET nome = ?, quantidade = ?, marca = ? WHERE id = ?");
 			st.setString(1, obj.getNome());
 			st.setInt(2, obj.getQuantidade());
 			st.setString(3, obj.getMarca());
@@ -72,7 +72,7 @@ public class MaterialDaoJDBC implements MaterialDao {
 	public void removeById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = con.prepareStatement("DELETE FROM itens WHERE id = ?");
+			st = con.prepareStatement("DELETE FROM tbl_material WHERE id = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 		} catch (SQLException e) {
@@ -88,7 +88,7 @@ public class MaterialDaoJDBC implements MaterialDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = con.prepareStatement("SELECT itens.* FROM itens WHERE id = ?");
+			st = con.prepareStatement("SELECT tbl_material.* FROM tbl_material WHERE id = ?");
 
 			st.setInt(1, id);
 			rs = st.executeQuery();
@@ -110,7 +110,7 @@ public class MaterialDaoJDBC implements MaterialDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = con.prepareStatement("SELECT * FROM itens ORDER BY nome");
+			st = con.prepareStatement("SELECT * FROM tbl_material ORDER BY nome");
 			rs = st.executeQuery();
 			List<Material> list = new ArrayList<>();
 

@@ -33,9 +33,9 @@ public class MainViewController implements Initializable {
 	@FXML
 	private MenuItem menuItemRecarga;
 	@FXML
-	private MenuItem meuItemLista;
-	@FXML
-	private MenuItem menuItemListaImpressora;
+	private MenuItem meuItemImpressoraSetor;
+	//@FXML
+	//private MenuItem menuItemListaImpressora;
 	@FXML
 	private MenuItem menuItemFabricanteImpressora;
 	@FXML
@@ -55,6 +55,11 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemAboutAction() {
 		loadView("/gui/About.fxml", x -> {});
+	}
+	
+	@FXML
+	private void onMenuItemImpressoraSetorAction() {
+		System.out.println("onMenuItemImpressoraSetorAction()");
 	}
 	
 	@FXML
