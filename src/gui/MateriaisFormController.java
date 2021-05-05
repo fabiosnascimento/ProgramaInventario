@@ -23,7 +23,7 @@ import model.entities.Itens;
 import model.exceptions.ValidationException;
 import model.services.ItensService;
 
-public class ItensFormController implements Initializable {
+public class MateriaisFormController implements Initializable {
 
 	private Itens entity;
 	private ItensService service;

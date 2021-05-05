@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="258.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensListController">
+<VBox prefHeight="258.0" prefWidth="527.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MateriaisListController">
    <children>
-      <Label text="Lista de Itens">
+      <Label text="Lista de Materiais">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -24,7 +24,7 @@
           <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNewAction" text="Novo" />
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewItens" prefHeight="197.0" prefWidth="560.0">
+      <TableView fx:id="tableViewMateriais" prefHeight="197.0" prefWidth="560.0">
       	<columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
         <columns>
           <TableColumn fx:id="tableColumnId" maxWidth="50.0" minWidth="50.0" prefWidth="75.0" text="Id" />

@@ -33,14 +33,14 @@ import javafx.stage.Stage;
 import model.entities.Itens;
 import model.services.ItensService;
 
-public class ItensListController implements Initializable, DataChangeListener {
+public class MateriaisListController implements Initializable, DataChangeListener {
 
 	private ItensService service;
 
 	@FXML
 	private Button btNovo;
 	@FXML
-	private TableView<Itens> tableViewItens;
+	private TableView<Itens> tableViewMateriais;
 	@FXML
 	private TableColumn<Itens, Integer> tableColumnId;
 	@FXML
@@ -64,7 +64,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 	public void onBtNewAction(ActionEvent e) {
 		Stage parentStage = Utils.currentStage(e);
 		Itens obj = new Itens();
-		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/MateriaisForm.fxml", parentStage);
 		sortById();
 	}
 
@@ -84,7 +84,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 		tableColumnMarca.setCellValueFactory(new PropertyValueFactory<>("Marca"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewItens.prefHeightProperty().bind(stage.heightProperty());
+		tableViewMateriais.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
@@ -93,7 +93,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 		}
 		List<Itens> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewItens.setItems(obsList);
+		tableViewMateriais.setItems(obsList);
 		initEditButtons();
 		initDeleteButtons();
 	}
@@ -103,14 +103,14 @@ public class ItensListController implements Initializable, DataChangeListener {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			ItensFormController controller = loader.getController();
+			MateriaisFormController controller = loader.getController();
 			controller.setItens(obj);
 			controller.setItensService(new ItensService());
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Insira os dados do equipamento");
+			dialogStage.setTitle("Insira os dados do material");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
@@ -141,7 +141,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 				}
 				setGraphic(button);
 				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/ItensForm.fxml", Utils.currentStage(event)));
+						event -> createDialogForm(obj, "/gui/MateriaisForm.fxml", Utils.currentStage(event)));
 			}
 		});
 		sortById();
@@ -167,7 +167,7 @@ public class ItensListController implements Initializable, DataChangeListener {
 	}
 	
 	private void removeEntity(Itens obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Atenção", "Deseja remover este item?");
+		Optional<ButtonType> result = Alerts.showConfirmation("Atenção", "Deseja remover este material?");
 
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {
@@ -184,6 +184,6 @@ public class ItensListController implements Initializable, DataChangeListener {
 	}
 	
 	public void sortById() {
-		tableViewItens.getSortOrder().add(tableColumnId);
+		tableViewMateriais.getSortOrder().add(tableColumnId);
 	}
 }

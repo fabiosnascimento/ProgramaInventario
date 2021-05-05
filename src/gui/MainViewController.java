@@ -27,7 +27,7 @@ import model.services.ItensService;
 public class MainViewController implements Initializable {
 
 	@FXML
-	private MenuItem menuItemItem;
+	private MenuItem menuItemMaterial;
 	@FXML
 	private MenuItem menuItemAbout;
 	@FXML
@@ -44,8 +44,8 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemSetor;
 	
 	@FXML
-	public void onMenuItemItemAction() {
-		loadView("/gui/ItensList.fxml", (ItensListController controller) -> {
+	public void onMenuItemMaterialAction() {
+		loadView("/gui/MateriaisList.fxml", (MateriaisListController controller) -> {
 			controller.setItensService(new ItensService());
 			controller.updateTableView();
 			controller.sortById();
