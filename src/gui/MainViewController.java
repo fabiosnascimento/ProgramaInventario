@@ -59,7 +59,19 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	private void onMenuItemImpressoraSetorAction() {
-		System.out.println("onMenuItemImpressoraSetorAction()");
+		loadView("/gui/CadImpressoraSetor.fxml", (CadImpressoraSetorController controller) -> {
+			controller.setCadSetorService(new CadSetorService());
+			controller.setCadFabricanteService(new CadFabricanteImpressoraService());
+			controller.setCadModeloService(new CadModeloImpressoraService());
+			Setor objSetor = new Setor();
+			FabricanteImpressora objFabricante = new FabricanteImpressora();
+			ModeloImpressora objModelo = new ModeloImpressora();
+			controller.setSetor(objSetor);
+			controller.setFabricanteImpressora(objFabricante);
+			controller.setModeloImpressora(objModelo);
+			controller.atualizaComboBoxSetor();
+			controller.atualizaComboBoxFabricante();
+		});
 	}
 	
 	@FXML
