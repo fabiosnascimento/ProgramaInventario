@@ -104,7 +104,7 @@ public class CadModeloImpressoraController implements Initializable, DataChangeL
 		if (modeloEntity == null) {
 			throw new IllegalStateException("Entity não iniciado");
 		}
-		if(modeloService == null) {
+		if (modeloService == null) {
 			throw new IllegalStateException("Service não iniciado");
 		}
 		try {

@@ -35,7 +35,7 @@
             </Label>
             <Label text="Modelo">
                <padding>
-                  <Insets left="65.0" top="10.0" />
+                  <Insets left="80.0" top="10.0" />
                </padding>
             </Label>
          </children>
@@ -47,7 +47,7 @@
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </ComboBox>
-            <ComboBox fx:id="comboBoxFabricante" prefHeight="25.0" prefWidth="115.0">
+            <ComboBox fx:id="comboBoxFabricante" prefHeight="25.0" prefWidth="130.0">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -67,20 +67,20 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblErroSetor" textFill="RED">
+            <Label fx:id="lblErroSetor" prefHeight="17.0" prefWidth="115.0" textFill="RED">
                <padding>
                   <Insets left="5.0" />
                </padding>
             </Label>
-            <Label fx:id="lblErroFabricante" textFill="RED">
-               <padding>
-                  <Insets left="93.0" />
-               </padding>
+            <Label fx:id="lblErroFabricante" prefWidth="130.0" textFill="RED">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </Label>
-            <Label fx:id="lblErroModelo" textFill="RED">
-               <padding>
-                  <Insets left="92.0" />
-               </padding>
+            <Label fx:id="lblErroModelo" prefWidth="115.0" textFill="RED">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
             </Label>
          </children>
          <VBox.margin>

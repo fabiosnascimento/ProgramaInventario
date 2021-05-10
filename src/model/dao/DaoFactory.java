@@ -2,6 +2,7 @@ package model.dao;
 
 import db.DB;
 import model.dao.impl.CadFabricanteImpressoraDaoJDBC;
+import model.dao.impl.CadImpressoraSetorDaoJDBC;
 import model.dao.impl.CadModeloImpressoraDaoJDBC;
 import model.dao.impl.CadSetorDaoJDBC;
 import model.dao.impl.MaterialDaoJDBC;
@@ -22,5 +23,9 @@ public class DaoFactory {
 	
 	public static CadSetorDao createCadSetorDao() {
 		return new CadSetorDaoJDBC(DB.getConnection());
+	}
+	
+	public static CadImpressoraSetorDao createCadImpressoraSetorDao() {
+		return new CadImpressoraSetorDaoJDBC(DB.getConnection());
 	}
 }
