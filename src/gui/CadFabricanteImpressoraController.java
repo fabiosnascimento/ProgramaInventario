@@ -101,6 +101,7 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 			entity = getTextFieldData();
 			service.saveOrUpdate(entity);
 			notifyDataChangeListeners();
+			lblErroNome.setText("");
 		} catch(ValidationException e) {
 			setErrorMessage(e.getErrors());
 		} catch(DBException e) {
@@ -217,6 +218,7 @@ public class CadFabricanteImpressoraController implements Initializable, DataCha
 				}
 				setGraphic(button);
 				button.setOnAction(event -> removeEntity(obj));
+				lblErroNome.setText("");
 			}
 		});
 	}

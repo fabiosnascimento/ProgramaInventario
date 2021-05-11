@@ -111,6 +111,7 @@ public class CadModeloImpressoraController implements Initializable, DataChangeL
 			modeloEntity = getTextFieldData();
 			modeloService.saveOrUpdate(modeloEntity);
 			notifyDataChangeListeners();
+			lblErroModelo.setText("");
 		} catch(ValidationException e) {
 			setErrorMessage(e.getErrors());
 		} catch(DBException e) {
@@ -166,6 +167,7 @@ public class CadModeloImpressoraController implements Initializable, DataChangeL
 			@Override
 			public void handle(ActionEvent e) {
 				tableViewImpressora.setVisible(true);
+				lblErroModelo.setText("");
 				exibeDados();
 			}
 		});
@@ -271,6 +273,7 @@ public class CadModeloImpressoraController implements Initializable, DataChangeL
 				}
 				setGraphic(button);
 				button.setOnAction(event -> removeEntity(obj));
+				lblErroModelo.setText("");
 			}
 		});
 	}

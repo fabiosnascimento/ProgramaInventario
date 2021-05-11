@@ -16,11 +16,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
 import model.entities.FabricanteImpressora;
 import model.entities.ImpressoraSetor;
 import model.entities.ModeloImpressora;
@@ -138,6 +137,12 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		List<Setor> list = setorService.findAll();
 		obsSetor = FXCollections.observableArrayList(list);
 		comboBoxSetor.setItems(obsSetor);
+		comboBoxSetor.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				lblErroSetor.setText("");				
+			}
+		});
 	}
 	
 	public void atualizaComboBoxFabricante() {
@@ -150,13 +155,13 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		comboBoxFabricante.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				comboBoxModelo.setVisible(true);
-				exibeDados();
+				atualizaComboBoxModelo();
+				lblErroFabricante.setText("");
 			}
 		});
 	}
 	
-	private void exibeDados() {
+	private void atualizaComboBoxModelo() {
 		if (modeloService == null) {
 			throw new IllegalStateException("Service não iniciado");
 		}
@@ -165,6 +170,12 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		List<ModeloImpressora> list = modeloService.findById(id);
 		obsModelo = FXCollections.observableArrayList(list);
 		comboBoxModelo.setItems(obsModelo);
+		comboBoxModelo.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				lblErroModelo.setText("");
+			}
+		});
 	}
 	
 	private ImpressoraSetor getComboBoxData() {

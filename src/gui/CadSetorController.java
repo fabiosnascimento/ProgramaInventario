@@ -101,6 +101,7 @@ public class CadSetorController implements Initializable, DataChangeListener {
 			entity = getTextFieldData();
 			service.saveOrUpdate(entity);
 			notifyDataChangeListeners();
+			lblErroNome.setText("");
 		} catch(ValidationException e) {
 			setErrorMessage(e.getErrors());
 		} catch(DBException e) {
@@ -216,6 +217,7 @@ public class CadSetorController implements Initializable, DataChangeListener {
 				}
 				setGraphic(button);
 				button.setOnAction(event -> removeEntity(obj));
+				lblErroNome.setText("");
 			}
 		});
 	}
