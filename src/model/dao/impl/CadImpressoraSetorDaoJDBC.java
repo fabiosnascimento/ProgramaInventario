@@ -52,8 +52,7 @@ public class CadImpressoraSetorDaoJDBC implements CadImpressoraSetorDao {
 
 	@Override
 	public void update(ImpressoraSetor obj) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
@@ -138,5 +137,4 @@ public class CadImpressoraSetorDaoJDBC implements CadImpressoraSetorDao {
 		obj.setIdModeloImpressora(modelo);
 		return obj;
 	}
-
 }

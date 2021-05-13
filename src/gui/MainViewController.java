@@ -36,8 +36,6 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemRecarga;
 	@FXML
 	private MenuItem meuItemImpressoraSetor;
-	//@FXML
-	//private MenuItem menuItemListaImpressora;
 	@FXML
 	private MenuItem menuItemFabricanteImpressora;
 	@FXML
@@ -65,12 +63,6 @@ public class MainViewController implements Initializable {
 			controller.setCadSetorService(new CadSetorService());
 			controller.setCadFabricanteService(new CadFabricanteImpressoraService());
 			controller.setCadModeloService(new CadModeloImpressoraService());
-//			Setor objSetor = new Setor();
-//			FabricanteImpressora objFabricante = new FabricanteImpressora();
-//			ModeloImpressora objModelo = new ModeloImpressora();
-//			controller.setSetor(objSetor);
-//			controller.setFabricanteImpressora(objFabricante);
-//			controller.setModeloImpressora(objModelo);
 			controller.setCadImpressoraService(new CadImpressoraSetorService());
 			ImpressoraSetor obj = new ImpressoraSetor();
 			controller.setImpressoraSetor(obj);
