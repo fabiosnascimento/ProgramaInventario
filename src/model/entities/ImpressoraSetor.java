@@ -54,11 +54,16 @@ public class ImpressoraSetor implements Serializable {
 		this.idModelo = idModeloImpressora;
 	}
 
+	public String toString() {
+		return getIdSetor().getNomeSetor();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idSetor == null) ? 0 : idSetor.hashCode());
+		result = prime * result + ((idFabricante == null) ? 0 : idFabricante.hashCode());
+		result = prime * result + ((idModelo == null) ? 0 : idModelo.hashCode());
 		return result;
 	}
 
@@ -71,15 +76,16 @@ public class ImpressoraSetor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ImpressoraSetor other = (ImpressoraSetor) obj;
-		if (idSetor == null) {
-			if (other.idSetor != null)
+		if (idFabricante == null) {
+			if (other.idFabricante != null)
 				return false;
-		} else if (!idSetor.equals(other.idSetor))
+		} else if (!idFabricante.equals(other.idFabricante))
+			return false;
+		if (idModelo == null) {
+			if (other.idModelo != null)
+				return false;
+		} else if (!idModelo.equals(other.idModelo))
 			return false;
 		return true;
-	}
-
-	public String toString() {
-		return getIdSetor().getNomeSetor();
 	}
 }

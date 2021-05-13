@@ -58,14 +58,45 @@ public class CadImpressoraSetorDaoJDBC implements CadImpressoraSetorDao {
 
 	@Override
 	public void removeById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = con.prepareStatement("DELETE FROM tbl_impressorasetor WHERE idimpressorasetor = ?");
+			st.setInt(1, id);
+			st.executeUpdate();
+		} catch(SQLException e) {
+			throw new DBException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
 	public List<ImpressoraSetor> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = con.prepareStatement("SELECT tbl_impressorasetor.idimpressorasetor, tbl_setor.setor, tbl_modeloimpressora.modelo, tbl_fabricanteimpressora.fabricante "
+										+ "FROM tbl_impressorasetor " 
+										+ "INNER JOIN tbl_setor ON tbl_impressorasetor.idsetor = tbl_setor.idsetor " 
+										+ "INNER JOIN tbl_fabricanteimpressora ON tbl_impressorasetor.idfabricante = tbl_fabricanteimpressora.idfabricanteimpressora " 
+										+ "INNER JOIN tbl_modeloimpressora ON tbl_impressorasetor.idmodelo = tbl_modeloimpressora.idmodeloimpressora "
+										+ "WHERE tbl_impressorasetor.idsetor = ?");
+			st.setInt(1, id);
+			
+			rs = st.executeQuery();
+			List<ImpressoraSetor> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				ImpressoraSetor obj = instantiateImpressoraSetor(rs);
+				list.add(obj);
+			}
+			return list;
+		} catch(SQLException e) {
+			throw new DBException(e.getMessage());
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -98,6 +129,7 @@ public class CadImpressoraSetorDaoJDBC implements CadImpressoraSetorDao {
 		Setor setor = new Setor();
 		FabricanteImpressora fabricante = new FabricanteImpressora();
 		ModeloImpressora modelo = new ModeloImpressora();
+		obj.setIdImpressoraSetor(rs.getInt("idimpressorasetor"));
 		setor.setNomeSetor(rs.getString("setor"));
 		fabricante.setFabricante(rs.getString("fabricante"));
 		modelo.setModelo(rs.getString("modelo"));

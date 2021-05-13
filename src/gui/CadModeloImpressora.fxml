@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="325.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadModeloImpressoraController">
+<VBox prefHeight="325.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CadModeloImpressoraController">
    <children>
       <Label text="Cadastro de Modelo">
          <font>

@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -65,7 +67,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="20.0" prefWidth="504.0">
          <children>
             <Label fx:id="lblErroSetor" prefHeight="17.0" prefWidth="115.0" textFill="RED">
                <padding>
@@ -87,5 +89,31 @@
             <Insets />
          </VBox.margin>
       </HBox>
+      <HBox prefHeight="28.0" prefWidth="504.0">
+         <children>
+            <Label text="Filtrar:">
+               <padding>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <ComboBox fx:id="comboBoxFiltro" prefHeight="25.0" prefWidth="115.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+      </HBox>
+      <TableView fx:id="tableViewFiltro" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+            <TableColumn fx:id="tableColumnIdImpressoraSetor" prefWidth="136.0" text="idImpressoraSetor" visible="false" />
+          <TableColumn fx:id="tableColumnSetor" prefWidth="72.0" text="Setor" />
+          <TableColumn fx:id="tableColumnFabricante" prefWidth="97.0" text="Fabricante" />
+            <TableColumn fx:id="tableColumnModelo" prefWidth="101.0" text="Modelo" />
+            <TableColumn fx:id="tableColumnDeletar" prefWidth="53.0" />
+        </columns>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </TableView>
    </children>
 </VBox>

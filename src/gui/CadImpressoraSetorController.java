@@ -4,12 +4,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import application.Main;
 import db.DBException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +21,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import model.entities.FabricanteImpressora;
 import model.entities.ImpressoraSetor;
 import model.entities.ModeloImpressora;
@@ -49,6 +60,8 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 	@FXML
 	private ComboBox<ModeloImpressora> comboBoxModelo;
 	@FXML
+	private ComboBox<Setor> comboBoxFiltro;
+	@FXML
 	private Button btSalvar;
 	@FXML
 	private Label lblConfirmacao;
@@ -58,12 +71,26 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 	private Label lblErroFabricante;
 	@FXML
 	private Label lblErroModelo;
+	@FXML
+	private TableView<ImpressoraSetor> tableViewFiltro;
+	@FXML
+	private TableColumn<ImpressoraSetor, Integer> tableColumnIdImpressoraSetor;
+	@FXML
+	private TableColumn<Setor, String> tableColumnSetor;
+	@FXML
+	private TableColumn<FabricanteImpressora, String> tableColumnFabricante;
+	@FXML
+	private TableColumn<ModeloImpressora, String> tableColumnModelo;
+	@FXML
+	private TableColumn<ImpressoraSetor, ImpressoraSetor> tableColumnDeletar;
 	
 	private ObservableList<Setor> obsSetor;
 	private ObservableList<FabricanteImpressora> obsFabricante;
 	private ObservableList<ModeloImpressora> obsModelo;
+	private ObservableList<ImpressoraSetor> obsFiltro;
 	
-
+	private Image imgDeletar = new Image("lixeira.png", 18, 18, true, true);
+	
 	public void setSetor(Setor setorEntity) {
 		this.setorEntity = setorEntity;
 	}
@@ -111,6 +138,7 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		try {
 			impressoraSetorEntity = getComboBoxData();
 			impressoraService.save(impressoraSetorEntity);
+			notifyDataChangeListeners();
 		} catch(ValidationException e) {
 			setErrorMessage(e.getErrors());
 		} catch(DBException e) {
@@ -118,16 +146,28 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		}
 	}
 
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListener) {
+			listener.onDataChanged();
+		}
+	}
+
 	@Override
 	public void onDataChanged() {
-		// TODO Auto-generated method stub
-		
+		exibeDados();
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO Auto-generated method stub
+		tableViewFiltro.setVisible(false);
+		tableColumnIdImpressoraSetor.setCellValueFactory(new PropertyValueFactory<>("idImpressoraSetor"));
+		tableColumnSetor.setCellValueFactory(new PropertyValueFactory<>("idSetor"));
+		tableColumnFabricante.setCellValueFactory(new PropertyValueFactory<>("idFabricanteImpressora"));
+		tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("idModeloImpressora"));
+		subscribeDataChangeListener(this);
 		
+		Stage stage = (Stage) Main.getMainScene().getWindow();
+		tableViewFiltro.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
 	public void atualizaComboBoxSetor() {
@@ -143,8 +183,29 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 				lblErroSetor.setText("");				
 			}
 		});
+		comboBoxFiltro.setItems(obsSetor);
+		comboBoxFiltro.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				tableViewFiltro.setVisible(true);
+				exibeDados();
+			}
+		});
 	}
 	
+	private void exibeDados() {
+		if (impressoraService == null) {
+			throw new IllegalStateException("Service não iniciado");
+		}
+		setorEntity = comboBoxFiltro.getSelectionModel().getSelectedItem();
+		Integer id = setorEntity.getIdSetor();
+		List<ImpressoraSetor> list = impressoraService.findById(id);
+		obsFiltro = FXCollections.observableArrayList(list);
+		tableViewFiltro.setItems(obsFiltro);
+		initDeleteButtons();
+	}
+	
+
 	public void atualizaComboBoxFabricante() {
 		if (fabricanteService == null) {
 			throw new IllegalStateException("Service não iniciado");
@@ -204,13 +265,6 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		}
 		obj.setIdModeloImpressora(modeloImpressoraEntity);
 		
-		List<ImpressoraSetor> list = impressoraService.findAll();
-		if (list.contains(obj)) {
-			exception.addError("existente", "Impressora já cadastrada");
-		}
-		if (exception.getErrors().size() > 0) {
-			throw exception;
-		}
 		return obj;
 	}
 	
@@ -225,6 +279,45 @@ public class CadImpressoraSetorController implements Initializable, DataChangeLi
 		}
 		if (fields.contains("idmodelonulo")) {
 			lblErroModelo.setText(errors.get("idmodelonulo"));
+		}
+		if (fields.contains("existente")) {
+			lblConfirmacao.setText(errors.get("existente"));
+		}
+	}
+	
+	private void initDeleteButtons() {
+		tableColumnDeletar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnDeletar.setCellFactory(param -> new TableCell<ImpressoraSetor, ImpressoraSetor>() {
+			private final Button button = new Button("", new ImageView(imgDeletar));
+
+			@Override
+			protected void updateItem(ImpressoraSetor obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+	
+	private void removeEntity(ImpressoraSetor obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Atenção", "Deseja remover este registro?");
+
+		if (result.get() == ButtonType.OK) {
+			if (impressoraService == null) {
+				throw new IllegalStateException("Service não iniciado");
+			}
+			try {
+				impressoraService.remove(obj);
+				setCadImpressoraService(new CadImpressoraSetorService());
+				exibeDados();
+
+			} catch (NullPointerException e) {
+				Alerts.showAlert("Atenção", null, "Selecione um registro", AlertType.INFORMATION);
+			}
 		}
 	}
 }

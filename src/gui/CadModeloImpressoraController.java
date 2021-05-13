@@ -147,9 +147,9 @@ public class CadModeloImpressoraController implements Initializable, DataChangeL
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		tableViewImpressora.setVisible(false);
-		tableColumnFabricante.setCellValueFactory(new PropertyValueFactory<>("Fabricante"));
+		tableColumnFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
 		tableColumnIdModelo.setCellValueFactory(new PropertyValueFactory<>("idModeloImpressora"));
-		tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("Modelo"));
+		tableColumnModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
 		subscribeDataChangeListener(this);
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();

@@ -27,7 +27,7 @@ public class CadImpressoraSetorService {
 //	}
 	
 	public void remove(ImpressoraSetor obj) {
-		dao.removeById(obj.getIdSetor().getIdSetor());
+		dao.removeById(obj.getIdImpressoraSetor());
 	}
 	
 	public List<ImpressoraSetor> findById(Integer id) {
