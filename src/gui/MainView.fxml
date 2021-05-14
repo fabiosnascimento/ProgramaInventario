@@ -29,11 +29,6 @@
                         <MenuItem fx:id="meuItemImpressoraSetor" mnemonicParsing="false" onAction="#onMenuItemImpressoraSetorAction" text="Impressora por setor" />
                     </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Impressoras">
-                     <items>
-                        <MenuItem fx:id="menuItemRecarga" mnemonicParsing="false" onAction="#onMenuItemRecargaAction" text="Recarga" />
-                     </items>
-                  </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
                     <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="About" />

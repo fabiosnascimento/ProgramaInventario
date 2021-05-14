@@ -33,8 +33,6 @@ public class MainViewController implements Initializable {
 	@FXML
 	private MenuItem menuItemAbout;
 	@FXML
-	private MenuItem menuItemRecarga;
-	@FXML
 	private MenuItem meuItemImpressoraSetor;
 	@FXML
 	private MenuItem menuItemFabricanteImpressora;
@@ -99,14 +97,6 @@ public class MainViewController implements Initializable {
 			Setor obj = new Setor();
 			controller.setSetor(obj);
 			controller.updateTableView();
-		});
-	}
-	
-	@FXML
-	public void onMenuItemRecargaAction() {
-		loadView("/gui/RecargaList.fxml", (RecargaListController controller) -> {
-			controller.setCadModeloImpressoraService(new CadModeloImpressoraService());
-			controller.atualizaImpressoras();
 		});
 	}
 	
