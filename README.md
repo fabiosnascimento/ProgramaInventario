@@ -18,7 +18,7 @@ O sistema consiste em cadastrar todos os materiais guardados dentro do C.P.D da 
 - Linguagem: Java 8
 - Interface gráfica: JavaFX
 - Banco de dados: MySQL
-- Padrão de projeto: MVC
+- Padrão de arquitetura: MVC
 
 # Autor
 
