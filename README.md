@@ -9,3 +9,4 @@ Projeto pessoal de sistema de controle de inventário do setor de TI.
 - Linguagem: Java 8
 - Interface gráfica: JavaFX
 - Banco de dados: MySQL
+- Padrão de projeto: MVC
