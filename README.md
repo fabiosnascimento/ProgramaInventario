@@ -3,7 +3,7 @@
 
 # Sobre o projeto
 
-O Sistema Inventário é um projeto pessoal para controle de inventário do setor de TI da empresa que trabalho atualmente.
+O Sistema Inventário é um projeto pessoal para controle de inventário do setor de TI da empresa que trabalhei.
 
 O sistema consiste em cadastrar todos os materiais guardados dentro do C.P.D da empresa e também efetuar o cadastro e relacionar as impressoras da empresa por setor.
 
